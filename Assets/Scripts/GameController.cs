@@ -8,13 +8,16 @@ public class GameController : MonoBehaviour
 {
     [SerializeField]
     private GraphView _graphView;
+    
     [SerializeField]
     private CupboardsView _cupboardsView;
+    
     [SerializeField]
     private PathfindingEngine _pathfindingEngine;
     
     [SerializeField]
     private GraphView _resultGraphView;
+    
     [SerializeField]
     private CupboardsView _resultCupboardsView;
 

@@ -11,6 +11,7 @@ public class CupboardsView : MonoBehaviour
 
     [SerializeField]
     private Color[] _colors;
+    
     [SerializeField]
     private Cupboard _cupboardPrefab;
 
