@@ -644,6 +644,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6bd7c8ce30b54371a5908d5cfc845ad4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _movesCountLabel: {fileID: 2085887178}
 --- !u!114 &2085887178
 MonoBehaviour:
   m_ObjectHideFlags: 0
