@@ -1,12 +1,14 @@
 using System.Collections.Generic;
-using CupBoardsLevelSettings;
 
-public class GraphModel
+namespace CupBoardsLevelSettings
 {
-    public List<NodeModel> Nodes { get; }
-
-    public GraphModel(List<NodeModel> nodes)
+    public class GraphModel
     {
-        Nodes = nodes;
+        public List<NodeModel> Nodes { get; }
+
+        public GraphModel(List<NodeModel> nodes)
+        {
+            Nodes = nodes;
+        }
     }
 }

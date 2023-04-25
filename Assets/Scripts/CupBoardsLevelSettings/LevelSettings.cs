@@ -6,10 +6,6 @@ using UnityEngine;
 
 namespace CupBoardsLevelSettings
 {
-    /// <summary>
-    /// Парсинг файла с конфигом - обсуждали реализацию на встрече:
-    /// https://www.youtube.com/watch?v=xhsutfdFnx4&list=PLZLvRAPO09LHNyQXa90HPU4RM4Sx5U0q8&index=8
-    /// </summary>
     public class LevelSettings
     {
         private readonly StreamReader _streamReader;
@@ -18,14 +14,13 @@ namespace CupBoardsLevelSettings
         public List<int> CupboardsFinishPositions { get; private set; }
 
         private readonly int _nodeCount;
-        private int _cupboardsCount;
 
         public GraphModel GameBoard { get; }
     
         public LevelSettings(string path)
         {
             _streamReader = new StreamReader(path);
-            _cupboardsCount = GetCupboardsCount();
+             GetCupboardsCount();
             _nodeCount = GetNodeCount();
             GameBoard = ReadGraphStructure();
         }
@@ -61,22 +56,14 @@ namespace CupBoardsLevelSettings
             return nodeCoordinates;
         }
 
-        private List<int> GetStartPositions()
+        private List<int> GetPositions()
         {
-            var startPositionsInString = _streamReader.ReadLine().Split(',');
-        
-            var startPositions = startPositionsInString.Select(position => Convert.ToInt32(position)).ToList();
-            return startPositions;
+            var positionsInString = _streamReader.ReadLine().Split(',');
+
+            var positions = positionsInString.Select(int.Parse).ToList();
+            return positions;
         }
-    
-        private List<int> GetFinishPositions()
-        {
-            var finishPositionsInString = _streamReader.ReadLine().Split(',');
         
-            var finishPositions = finishPositionsInString.Select(position => Convert.ToInt32(position)).ToList();
-            return finishPositions;
-        }
-    
         private GraphModel ReadGraphStructure()
         {
             var nodeCoordinates = GetNodeCoordinates();
@@ -87,8 +74,8 @@ namespace CupBoardsLevelSettings
                 nodes.Add(new NodeModel(nodeCoordinates[i]));
             }
         
-            CupboardsStartPositions = GetStartPositions();
-            CupboardsFinishPositions = GetFinishPositions();
+            CupboardsStartPositions = GetPositions();
+            CupboardsFinishPositions = GetPositions();
 
             var countOfConnections = Convert.ToInt32(_streamReader.ReadLine());
 

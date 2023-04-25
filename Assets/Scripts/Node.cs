@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using DG.Tweening;
+using DOTween.Modules;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -42,18 +43,7 @@ public class Node : MonoBehaviour
     {
         _rectTransform.anchoredPosition = position;
     }
-
-    /// <summary>
-    /// Пример использования инкапсуляции:
-    /// 
-    /// Мы возвращает не просто List<Node>, а IReadOnlyList (который List реализует в .NET по умолчанию)
-    /// это интерфейс, который по умолчанию не позволяет наш List редактировать
-    /// т.е. добавлять / удалять элементы.
-    ///
-    /// Сейчас в нашем коде - мы нигде не редактируем этот список и казалось бы
-    /// можно вернуть просто List, но тогда в будущем кто-то может случайно неправильно им
-    /// воспользоваться и сломать всю логику. Поэтому сразу пишем более надежный вариант.
-    /// </summary>
+    
     public IReadOnlyList<Node> GetNeighbours()
     {
         return _neighbours;
