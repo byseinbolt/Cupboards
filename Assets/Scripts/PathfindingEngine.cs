@@ -17,14 +17,14 @@ public class PathfindingEngine : MonoBehaviour
     {
         var parentNode = new Dictionary<Node, Node>();
         var visited = new HashSet<Node>();
-        
+
         var nextNodes = new Queue<Node>();
         var current = start;
-        
+
         EnqueueAllNeighbours(current, visited, parentNode, nextNodes);
 
         var isPathFound = false;
-        
+
         while (nextNodes.Count > 0)
         {
             current = nextNodes.Dequeue();
@@ -40,9 +40,9 @@ public class PathfindingEngine : MonoBehaviour
             {
                 continue;
             }
-            
+
             EnqueueAllNeighbours(current, visited, parentNode, nextNodes);
-            
+
             visited.Add(current);
         }
 
@@ -51,7 +51,7 @@ public class PathfindingEngine : MonoBehaviour
             return null;
         }
 
-        var result = new List<Node> { current };
+        var result = new List<Node> {current};
         while (current != start)
         {
             current = parentNode[current];
@@ -59,11 +59,11 @@ public class PathfindingEngine : MonoBehaviour
         }
 
         result.Reverse();
-        
         return result;
     }
 
-    private static void EnqueueAllNeighbours(Node current, HashSet<Node> visited, Dictionary<Node, Node> routes, Queue<Node> nextNodes)
+    private static void EnqueueAllNeighbours(Node current, HashSet<Node> visited, Dictionary<Node, Node> routes,
+        Queue<Node> nextNodes)
     {
         foreach (var neighbour in current.GetNeighbours())
         {
@@ -71,7 +71,7 @@ public class PathfindingEngine : MonoBehaviour
             {
                 continue;
             }
-            
+
             routes[neighbour] = current;
             nextNodes.Enqueue(neighbour);
         }
@@ -82,24 +82,24 @@ public class PathfindingEngine : MonoBehaviour
         var result = new HashSet<Node>();
 
         var nextNodes = new Queue<Node>(start.GetNeighbours());
-        while(nextNodes.Count > 0)
+        while (nextNodes.Count > 0)
         {
             var nextNode = nextNodes.Dequeue();
-            
+
             // skip already visited or not walkable nodes
             if (result.Contains(nextNode) || !nextNode.IsWalkable)
             {
                 continue;
             }
-            
+
             foreach (var neighbour in nextNode.GetNeighbours())
             {
                 nextNodes.Enqueue(neighbour);
             }
-            
+
             result.Add(nextNode);
         }
-
+        
         return result.ToList();
     }
 }

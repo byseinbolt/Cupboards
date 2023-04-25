@@ -12,10 +12,10 @@ public class Node : MonoBehaviour
 {
     public Vector2 Position => transform.position;
     public bool IsWalkable { get; set; }
-    
+
     [SerializeField]
     private Image _background;
-    
+
     [SerializeField]
     private List<Node> _neighbours;
 
@@ -33,7 +33,7 @@ public class Node : MonoBehaviour
     {
         _rectTransform.anchoredPosition = position;
     }
-    
+
     public IReadOnlyList<Node> GetNeighbours()
     {
         return _neighbours;
@@ -48,11 +48,11 @@ public class Node : MonoBehaviour
     {
         _onClicked?.Invoke(this);
     }
-    
+
     public void PlayBounceAnimation()
     {
         StopBounceAnimation();
-        
+
         var endValue = new Vector3(1.1f, 1.1f, 1.1f);
         _background.DOColor(Color.green, 1f)
             .SetEase(Ease.OutBounce)

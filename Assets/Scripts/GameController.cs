@@ -8,16 +8,16 @@ public class GameController : MonoBehaviour
 {
     [SerializeField]
     private GraphView _graphView;
-    
+
     [SerializeField]
     private CupboardsView _cupboardsView;
-    
+
     [SerializeField]
     private PathfindingEngine _pathfindingEngine;
-    
+
     [SerializeField]
     private GraphView _resultGraphView;
-    
+
     [SerializeField]
     private CupboardsView _resultCupboardsView;
 
@@ -36,26 +36,26 @@ public class GameController : MonoBehaviour
         _graphView.Initialize(levelSettings);
         // создаем игровые фишки, которые располагаются на графе
         _cupboardsView.Initialize(_graphView, levelSettings.CupboardsStartPositions);
-        
+
         // при клике на ноду - вывываем OnNodeClicked
         // там обрабатываем перемещение выделенной фишки в ноду
         _graphView.OnNodeClicked += OnNodeClicked;
         // при клике на фишку - вывываем OnNodeClicked
         // там обрабатываем выделение фишки и подсветку нод куда можно переместиться
         _cupboardsView.OnCupboardClicked += OnCupboardClicked;
-        
+
         // создаем доску которая должна получится в результате
         _resultGraphView.Initialize(levelSettings);
         _resultCupboardsView.Initialize(_resultGraphView, levelSettings.CupboardsFinishPositions);
     }
-    
+
     private void OnDestroy()
     {
         // Обязательно отписываемся от всех событий на которые мы подписались
         _graphView.OnNodeClicked -= OnNodeClicked;
         _cupboardsView.OnCupboardClicked -= OnCupboardClicked;
     }
-    
+
     private void OnCupboardClicked(Cupboard cupboard)
     {
         // если сейчас идет анимация перемещения фишки - ничего не делаем
@@ -78,16 +78,16 @@ public class GameController : MonoBehaviour
             _selectedCupboard = null;
             return;
         }
-        
+
         // если все же фишка другая - тогда выделяем ее и пути куда она может пройти
         SelectCupboardAndAllReachableNodes(cupboard);
     }
-    
+
     private void SelectCupboardAndAllReachableNodes(Cupboard cupboard)
     {
         // запоминаем что мы эту фишку выделили 
         _selectedCupboard = cupboard;
-        
+
         // находим все вершины куда мы можем добраться
         foreach (var node in _pathfindingEngine.GetAllReachableNodes(cupboard.Node))
         {
@@ -108,7 +108,7 @@ public class GameController : MonoBehaviour
             // то просто ничего не делаем
             return;
         }
-        
+
         // иначе: если фишка выделена и она не двигается
         // выключаем эффекты подсветки достижимых нод
         StopBounceEffectForCupboardAndReachableNodes();
@@ -136,7 +136,7 @@ public class GameController : MonoBehaviour
     {
         // отмечаем флаг что движение уже началось
         _isMoving = true;
-        
+
         // создаем последовательность анимаций, которые будут выполняться 
         // одна за одной
         var sequence = DG.Tweening.DOTween.Sequence();
@@ -148,7 +148,7 @@ public class GameController : MonoBehaviour
 
         // когда все анимации выполнились сбрасываем флаги (и перестраховываемся - выставляем конечную позицию)
         sequence.OnComplete(() => OnCupboardReachedDestination(path.Last()));
-        
+
         // запускаем последовательность анимаций
         sequence.Play();
     }

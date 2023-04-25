@@ -31,7 +31,7 @@ public class Cupboard : MonoBehaviour
         {
             Node.IsWalkable = true;
         }
-        
+
         Node = node;
         node.IsWalkable = false;
         _rectTransform.position = node.Position;

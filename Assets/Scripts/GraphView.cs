@@ -9,10 +9,10 @@ using UnityEngine;
 public class GraphView : MonoBehaviour
 {
     public event Action<Node> OnNodeClicked;
-    
+
     [SerializeField]
     private Node _nodePrefab;
-    
+
     [SerializeField]
     private LineRenderer _edge;
 

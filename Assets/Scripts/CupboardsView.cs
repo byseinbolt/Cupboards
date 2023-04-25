@@ -11,7 +11,7 @@ public class CupboardsView : MonoBehaviour
 
     [SerializeField]
     private Color[] _colors;
-    
+
     [SerializeField]
     private Cupboard _cupboardPrefab;
 
@@ -19,7 +19,7 @@ public class CupboardsView : MonoBehaviour
     {
         CreateCupboards(graphView, cupboardPositions);
     }
-    
+
     private void CreateCupboards(GraphView graphView, IReadOnlyList<int> cupboardPositions)
     {
         for (var index = 0; index < cupboardPositions.Count; index++)
